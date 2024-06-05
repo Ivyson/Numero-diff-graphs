@@ -10,7 +10,7 @@ def G(omega):
 # Values for t
 t = np.linspace(-3, 3, 400)
 # Values for omega
-omega = np.linspace(-50, 50, 1000)
+omega = np.linspace(-100, 100, 1000)
 # Calculate g(t) and G(jω)
 g_values = g(t)
 G_values = G(omega)
