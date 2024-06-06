@@ -37,7 +37,7 @@ plt.xlabel("t")
 plt.ylabel("f(t)")
 plt.legend()
 plt.grid(True)
-plt.ylim(-2, 2)
+plt.ylim(-2, 10)
 
 # Show the plot
 plt.show()
