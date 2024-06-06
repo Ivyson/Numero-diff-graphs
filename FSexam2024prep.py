@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 
 # Define the piecewise function f(t)
 def piecewise_function(t):
+    t = np.mod(t + np.pi, 2 * np.pi) - np.pi  # Adjusting t to be within the interval [-pi, pi]
     return np.where((-np.pi < t) & (t < 0), 1, np.where((0 < t) & (t < np.pi), t, 0))
 
 # Define the Fourier series approximation function
@@ -18,10 +19,10 @@ def fourier_series(t, num_terms):
 t = np.linspace(-2 * np.pi, 2 * np.pi, 800)
 
 # Calculate the piecewise function values
-f_piecewise = piecewise_function(t % (2 * np.pi) - np.pi)
+f_piecewise = piecewise_function(t)
 
 # Calculate the Fourier series approximation values
-num_terms = 7
+num_terms = 20
 f_fourier = fourier_series(t, num_terms)
 
 # Plot the piecewise function
