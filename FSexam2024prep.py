@@ -1,21 +1,26 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-# Define the function f(t)
-def f(t):
-    return (2 + np.pi) / 4 + np.sum((((-1)**n - 1) / (np.pi * n**2)) * np.cos(n * t) for n in range(1, 101)) + np.sum((((1 - np.pi) * (-1)**n - 1) / (np.pi * n)) * np.sin(n * t) for n in range(1, 101))
+# Define the range of t values
+t = np.linspace(-2*np.pi, 2 * np.pi, 400)
 
-# Create time values for plotting
-t_values = np.linspace(-2 * np.pi, 2 * np.pi, 1000)
+# Initialize the function with the constant term
+f_t = (2 + np.pi) / 4
 
-# Evaluate f(t)
-f_values = [f(t) for t in t_values]
+# Number of terms to include in the series
+num_terms = 7
 
-# Plot f(t)
-plt.figure(figsize=(8, 4))
-plt.plot(t_values, f_values, label='$f(t)$')
-plt.xlabel('$t$')
-plt.ylabel('Function Value')
-plt.title('Fourier Expansion of $f(t)$')
+# Compute the Fourier series sum
+for n in range(1, num_terms):
+    cosine_term = (np.power(-1, n) - 1) / (np.pi * n**2) * np.cos(n * t)
+    sine_term = ((1 - np.pi) * np.power(-1, n) - 1) / (np.pi * n) * np.sin(n * t)
+    f_t += cosine_term + sine_term
+
+# Plot the resulting function
+plt.plot(t, f_t, label=f"First {num_terms} terms")
+plt.title("Fourier Series Approximation")
+plt.xlabel("t")
+plt.ylabel("f(t)")
+plt.legend()
 plt.grid(True)
 plt.show()
