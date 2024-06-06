@@ -1,26 +1,42 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
+# Define the piecewise function f(t)
+def piecewise_function(t):
+    return np.where((-np.pi < t) & (t < 0), 1, np.where((0 < t) & (t < np.pi), t, 0))
+
+# Define the Fourier series approximation function
+def fourier_series(t, num_terms):
+    f_t = (2 + np.pi) / 4
+    for n in range(1, num_terms):
+        cosine_term = (np.power(-1, n) - 1) / (np.pi * n**2) * np.cos(n * t)
+        sine_term = ((1 - np.pi) * np.power(-1, n) - 1) / (np.pi * n) * np.sin(n * t)
+        f_t += cosine_term + sine_term
+    return f_t
+
 # Define the range of t values
-t = np.linspace(-2*np.pi, 2 * np.pi, 400)
+t = np.linspace(-2 * np.pi, 2 * np.pi, 800)
 
-# Initialize the function with the constant term
-f_t = (2 + np.pi) / 4
+# Calculate the piecewise function values
+f_piecewise = piecewise_function(t % (2 * np.pi) - np.pi)
 
-# Number of terms to include in the series
+# Calculate the Fourier series approximation values
 num_terms = 7
+f_fourier = fourier_series(t, num_terms)
 
-# Compute the Fourier series sum
-for n in range(1, num_terms):
-    cosine_term = (np.power(-1, n) - 1) / (np.pi * n**2) * np.cos(n * t)
-    sine_term = ((1 - np.pi) * np.power(-1, n) - 1) / (np.pi * n) * np.sin(n * t)
-    f_t += cosine_term + sine_term
+# Plot the piecewise function
+plt.plot(t, f_piecewise, label="Piecewise function f(t)")
 
-# Plot the resulting function
-plt.plot(t, f_t, label=f"First {num_terms} terms")
-plt.title("Fourier Series Approximation")
+# Plot the Fourier series approximation
+plt.plot(t, f_fourier, label=f"Fourier series (first {num_terms} terms)", linestyle='--')
+
+# Add labels and title
+plt.title("Piecewise Function and Its Fourier Series Approximation")
 plt.xlabel("t")
 plt.ylabel("f(t)")
 plt.legend()
 plt.grid(True)
+plt.ylim(-2, 2)
+
+# Show the plot
 plt.show()
