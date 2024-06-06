@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import time
 
 # Define the piecewise function f(t)
 def piecewise_function(t):
@@ -21,15 +22,24 @@ t = np.linspace(-2 * np.pi, 2 * np.pi, 800)
 # Calculate the piecewise function values
 f_piecewise = piecewise_function(t)
 
-# Calculate the Fourier series approximation values
-num_terms = 10000000
-f_fourier = fourier_series(t, num_terms)
+# Measure the time taken for a smaller number of terms
+small_num_terms = 100
+start_time = time.time()
+f_fourier_small = fourier_series(t, small_num_terms)
+end_time = time.time()
+
+time_taken_small = end_time - start_time
+print(f"Time taken for {small_num_terms} terms: {time_taken_small:.4f} seconds")
+
+# Estimate the time for 10 million terms
+estimated_time = (time_taken_small / small_num_terms) * 10000000
+print(f"Estimated time for 10 million terms: {estimated_time / 3600:.2f} hours")
 
 # Plot the piecewise function
 plt.plot(t, f_piecewise, label="Piecewise function f(t)")
 
-# Plot the Fourier series approximation
-plt.plot(t, f_fourier, label=f"Fourier series (first {num_terms} terms)", linestyle='--')
+# Plot the Fourier series approximation for small number of terms
+plt.plot(t, f_fourier_small, label=f"Fourier series (first {small_num_terms} terms)", linestyle='--')
 
 # Add labels and title
 plt.title("Piecewise Function and Its Fourier Series Approximation")
