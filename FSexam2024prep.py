@@ -7,11 +7,11 @@ def piecewise_function(t):
 
 # Define the Fourier series approximation function
 def fourier_series(t, num_terms):
-    f_t = (2 + np.pi) / 4
+    f_t = 1/2 + np.pi/4
     for n in range(1, num_terms):
-        cosine_term = (np.power(-1, n) - 1) / (np.pi * n**2) * np.cos(n * t)
-        sine_term = ((1 - np.pi) * np.power(-1, n) - 1) / (np.pi * n) * np.sin(n * t)
-        f_t += cosine_term + sine_term
+        a_n = -2 * (1 - (-1)**n) / (n**2 * np.pi)
+        b_n = (1 - np.pi) * (-1)**n / n
+        f_t += a_n * np.cos(n * t) + b_n * np.sin(n * t)
     return f_t
 
 # Define the range of t values
