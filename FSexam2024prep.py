@@ -22,7 +22,7 @@ t = np.linspace(-2 * np.pi, 2 * np.pi, 800)
 f_piecewise = piecewise_function(t)
 
 # Calculate the Fourier series approximation values
-num_terms = 100
+num_terms = 9000
 f_fourier = fourier_series(t, num_terms)
 
 # Plot the piecewise function
